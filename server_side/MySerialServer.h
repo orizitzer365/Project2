@@ -5,8 +5,15 @@
 #ifndef PROJECT2_MYSERIALSERVER_H
 #define PROJECT2_MYSERIALSERVER_H
 
+#include "Server.h"
+
 namespace server_side{
-    class MySerialServer {
+    class MySerialServer:Server {
+        void open(int port) override;
+
+        void stop() override;
+
+    public:
 
     };
 }

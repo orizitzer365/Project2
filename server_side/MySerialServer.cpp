@@ -3,3 +3,11 @@
 //
 
 #include "MySerialServer.h"
+
+void server_side::MySerialServer::open(int port) {
+
+}
+
+void server_side::MySerialServer::stop() {
+
+}
