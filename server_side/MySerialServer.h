@@ -9,11 +9,13 @@
 
 namespace server_side{
     class MySerialServer:Server {
-        void open(int port) override;
+    private:
+        int sock_id;
+    public:
+        void open(int port,ClientHandler* c) override;
 
         void stop() override;
 
-    public:
 
     };
 }
