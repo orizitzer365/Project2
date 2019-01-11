@@ -8,10 +8,12 @@ using std::fstream;
 template<class Problem, class Solution>
 cache_manager::FileCacheManager<Problem, Solution>::FileCacheManager() {
     fstream file("cache_manager/solutionFile");
+    std::string pro,sol;
     if(file.fail())
-        throw "Error open file";
-    for(auto i = solMap.begin();i!=solMap.end();++i){
-        file<<i->first<<" "<<i->second<<std::endl;
+        throw "Error in open file";
+    while (!file.eof()){
+        file>>pro>>sol;
+        //set()
     }
 }
 
@@ -36,6 +38,6 @@ cache_manager::FileCacheManager<Problem, Solution>::~FileCacheManager() {
     if(file.fail())
         throw "Error open file";
     for(auto i = solMap.begin();i!=solMap.end();++i){
-        file<<i->first<<" "<<i->second<<std::endl;
+        file<<i->first->to_string()<<" "<<i->second->to_string()<<std::endl;
     }
 }

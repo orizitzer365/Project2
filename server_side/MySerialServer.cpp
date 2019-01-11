@@ -49,7 +49,7 @@ void server_side::MySerialServer::open(int port,ClientHandler* c) {
                 exit(3);
             }
         }
-        std::thread server(clientHandeling,port,c);
+        std::thread server(clientHandeling,new_sock,c);
         server.detach();
         currentThread = &server;
         sock_id = new_sock;
