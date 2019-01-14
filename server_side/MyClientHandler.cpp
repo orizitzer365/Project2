@@ -14,6 +14,8 @@
 #include <string>
 using std::string;
 #include <sys/socket.h>
+#include <cstring>
+
 std::pair<int,int> makePairOutOfCordinates(string line){
     int j=0;
     string val1,val2;
@@ -24,35 +26,24 @@ std::pair<int,int> makePairOutOfCordinates(string line){
         val2+=line.at(j);
     return std::make_pair(stoi(val1),stoi(val2));
 }
+
 void MyClientHandler::handleClient(int port) {
     int  n;
-    string size(256,0),start(256,0),end(256,0);
-    n = read( port,&size[0],255 );
+    string size(512,0),start(512,0),end(512,0);
+    n = read( port,&size[0],511 );
 
     if (n < 0) {
         perror("ERROR reading from socket");
         exit(1);
     }
-    Matrix mat(stoi(size));
-    n = read( port,&start[0],255 );
-    if (n < 0) {
-        perror("ERROR reading from socket");
-        exit(1);
-    }
-    mat.setStart(makePairOutOfCordinates(start));
-    n = read( port,&end[0],255 );
+    Matrix* mat = new Matrix();
 
-    if (n < 0) {
-        perror("ERROR reading from socket");
-        exit(1);
-    }
-    mat.setEnd(makePairOutOfCordinates(end));
     int i=0;
     while (true){
-        string buffer(256,0);
-        buffer.resize(256);
+        string buffer(512,0);
+        buffer.resize(512);
         /* If connection is established then start communicating */
-        n = read( port,&buffer[0],255 );
+        n = read( port,&buffer[0],511 );
 
         if (n < 0) {
             perror("ERROR reading from socket");
@@ -60,10 +51,35 @@ void MyClientHandler::handleClient(int port) {
         }
         if(buffer=="end")
             break;
-        mat.add(buffer,i);
+        mat->add(buffer,i);
         i++;
     }
+    n = read( port,&start[0],511 );
+    if (n < 0) {
+        perror("ERROR reading from socket");
+        exit(1);
+    }
+    mat->setStart(makePairOutOfCordinates(start));
+    n = read( port,&end[0],511 );
 
+    if (n < 0) {
+        perror("ERROR reading from socket");
+        exit(1);
+    }
+    mat->setEnd(makePairOutOfCordinates(end));
+    Solution *sol;
+    if(cacheManager->isExists(mat))
+        sol = cacheManager->get(mat);
+    else
+        sol = solver->solve(mat);
+    send(port,sol->to_string().c_str(),sol->to_string().size(),0);
+    if(!cacheManager->isExists(mat))
+        cacheManager->set(mat,sol);
 }
+
+MyClientHandler::MyClientHandler() {}
+
+MyClientHandler::MyClientHandler(cache_manager::CacheManager<Problem, Solution> *cacheManager,Solver* solver1) :
+cacheManager(cacheManager) ,solver(solver1){}
 
 

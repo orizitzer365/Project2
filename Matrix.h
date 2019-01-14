@@ -7,21 +7,32 @@
 
 #include <string>
 #include <vector>
+#include "Problem.h"
 
 using std::vector;
-class Matrix {
+class Matrix: public Problem {
 private:
     vector<vector<int> > matrix;
     int rowSize;
     std::pair<int,int> start;
     std::pair<int,int> end;
 public:
-    Matrix(int rowSize);
+    Matrix();
     void add(std::string line,int lineNumber);
 
     void setStart(std::pair<int, int> start);
 
     void setEnd(std::pair<int, int> end);
+
+    std::pair<int, int> getStart() const;
+
+    std::pair<int, int> getEnd() const;
+
+    int at(int row ,int col);
+
+    std::string to_string() override;
+
+    void from_string(std::string string) override;
 };
 
 

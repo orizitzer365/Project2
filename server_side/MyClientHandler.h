@@ -6,10 +6,22 @@
 #define PROJECT2_MYCLIENTHANDLER_H
 
 #include "ClientHandler.h"
+#include "../cache_manager/CacheManager.h"
+#include "../Matrix.h"
+#include "../MatrixSolution.h"
+#include "../cache_manager/FileCacheManager.h"
+#include "../Solver.h"
 
 class MyClientHandler :ClientHandler{
-public:
 private:
+    cache_manager::CacheManager<Problem,Solution> *cacheManager;
+    Solver *solver;
+
+public:
+    MyClientHandler();
+
+    MyClientHandler(cache_manager::CacheManager<Problem, Solution> *cacheManager,Solver* solver1);
+
     void handleClient(int port) override;
 };
 

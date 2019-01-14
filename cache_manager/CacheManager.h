@@ -10,7 +10,7 @@ namespace cache_manager{
     public:
         virtual Solution* get(Problem* problem) = 0;
         virtual bool isExists(Problem* problem) = 0;
-        virtual void set(Problem* problem, Solution* solution) = 0;
+        virtual void set(Problem* problem, Solution *solution) = 0;
     };
 }
 #endif //PROJECT2_CACHEMANAGER_H
