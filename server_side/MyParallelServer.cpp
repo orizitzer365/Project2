@@ -1,23 +1,25 @@
 //
-// Created by ori on 1/8/19.
+// Created by ori on 1/14/19.
 //
+#include "MyParallelServer.h"
+void worker(TasksQueue* queue){
+    while (!queue->stop()) {
+        queue->wait();
 
-#include "MySerialServer.h"
-#include <stdio.h>
-#include <stdlib.h>
-
-#include <sys/socket.h>
-#include <arpa/inet.h>
-#include <unistd.h>
-#include <errno.h>
-#include <cstdlib>
-#include <iostream>
-#include <thread>
-
-void clientHandeling(int port,ClientHandler* clientHandler){
-    clientHandler->handleClient(port);
+        Task* task = queue->pop();
+        if (task) {
+            task->execute();
+            delete task;
+        }
+    }
 }
-void server_side::MySerialServer::open(int port,ClientHandler* c) {
+void server_side::MyParallelServer::open(int port, ClientHandler *c) {
+    std::queue<std::thread> workers;
+    TasksQueue tasks_queue;
+
+    for (int i = 0; i < THREAD_POOL_SIZE; ++i) {
+        workers.push(std::thread(worker, &tasks_queue));
+    }
     int s = socket(AF_INET, SOCK_STREAM, 0);
     struct sockaddr_in serv;
     serv.sin_addr.s_addr = INADDR_ANY;
@@ -42,31 +44,20 @@ void server_side::MySerialServer::open(int port,ClientHandler* c) {
         if (new_sock < 0)	{
             if (errno == EWOULDBLOCK)	{
                 std::cout << "timeout!" << std::endl;
-                exit(2);
+                break;
             }	else	{
                 perror("other error");
                 exit(3);
             }
         }
-        std::thread server(clientHandeling,new_sock,c);
-        server.detach();
-        currentThread = &server;
-        sock_id = new_sock;
+        tasks_queue.push(new TaskHandleClient(c,new_sock));
+    }
 
+    tasks_queue.exit();
+    while (!workers.empty()) {
+        workers.front().join();
+        workers.pop();
     }
 
 }
-
-void server_side::MySerialServer::stop() {
-    close(sock_id);
-    if(currentThread!= nullptr)
-        currentThread->join();
-}
-
-int main( int argc, char *argv[] ) {
-
-    return 0;
-}
-
-
 
