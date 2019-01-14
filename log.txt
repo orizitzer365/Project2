@@ -1,3 +1,27 @@
+commit f8dc970d4dac3f331765d070300ecc09ebcdd072
+Author: orizitzer365 <orizit365@gmail.com>
+Date:   Mon Jan 14 20:58:55 2019 +0200
+
+    added 14/01/19
+
+commit f1e79444f02ed8d4612316c19ee7fda814c7a793
+Author: orizitzer365 <orizit365@gmail.com>
+Date:   Mon Jan 14 18:44:52 2019 +0200
+
+    added 14/01/19
+
+commit 9e7136efe801e6ae0a71ec38cd4502b273ceef90
+Author: orizitzer365 <orizit365@gmail.com>
+Date:   Fri Jan 11 15:32:29 2019 +0200
+
+    added
+
+commit 52f28e942c602dc0e2083018c56bab80ae96fbc6
+Author: orizitzer365 <orizit365@gmail.com>
+Date:   Fri Jan 11 10:43:40 2019 +0200
+
+    added
+
 commit 4537fdc80e386d65ba40c8970e7a6bb748d5f4d5
 Author: orizitzer365 <orizit365@gmail.com>
 Date:   Fri Jan 11 09:36:31 2019 +0200

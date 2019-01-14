@@ -12,9 +12,9 @@
 #include <netinet/in.h>
 
 #include <string>
-using std::string;
 #include <sys/socket.h>
 #include <cstring>
+using std::string;
 
 std::pair<int,int> makePairOutOfCordinates(string line){
     int j=0;
