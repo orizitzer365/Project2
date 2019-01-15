@@ -57,6 +57,7 @@ cache_manager::FileCacheManager::~FileCacheManager() {
         file<<"$$"<<i->first<<"$$"<<" "<<*i->second;
         if(j>0)
             file<<std::endl;
+        delete i->second;
         j--;
     }
 }

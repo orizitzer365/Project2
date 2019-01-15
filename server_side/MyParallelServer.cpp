@@ -67,3 +67,4 @@ void server_side::MyParallelServer::open(int port, ClientHandler *c) {
 server_side::MyParallelServer::MyParallelServer() {
     strillRunning = true;
 }
+

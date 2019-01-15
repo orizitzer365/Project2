@@ -8,4 +8,6 @@ using cache_manager::FileCacheManager;
 int main() {
     server_side::Server *server= new server_side::MyParallelServer();
     server->open(5400,new MyClientHandler(new FileCacheManager(),new StringReverser()));
+    delete server;
+
 }

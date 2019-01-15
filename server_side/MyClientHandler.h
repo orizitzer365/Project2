@@ -23,6 +23,7 @@ public:
     MyClientHandler(cache_manager::CacheManager<Problem, Solution> *cacheManager,Solver<Problem,Solution>* solver1);
 
     void handleClient(int port) override;
+
 };
 
 
