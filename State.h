@@ -12,40 +12,29 @@ class State {
 
     StateTipe state;
     double cost;
-    State<StateTipe>* cameFrom;
 
 public:
 
-    State(StateTipe state , double cost): state(state), cameFrom(nullptr), cost(cost){}
+    State(StateTipe state , double cost): state(state), cost(cost){}
 
-    State(StateTipe state): state(state), cameFrom(nullptr){
+    State(StateTipe state): state(state){
         cost = DEFAULT_COST;
     }
-/*
-    State(State<StateTipe>& other){
-        state = other.state;
-        cost = other.cost;
-        cameFrom = other.cameFrom;
-    }*/
 
-    bool operator==(State<StateTipe>& other){
+    bool operator==(State<StateTipe> other){
         return other.state == this->state;
+    }
+
+    virtual bool operator<(State<StateTipe> other){
+        return other.state < this->state;
     }
 
     double getCost(){
         return cost;
     }
 
-    StateTipe& getState(){
+    StateTipe getState(){
         return StateTipe(state);
-    }
-
-    State<StateTipe>* getCameFrom(){
-        return cameFrom;
-    }
-
-    void setCameFrom(State<StateTipe>* cameFrom){
-        this->cameFrom = cameFrom;
     }
 
 };
