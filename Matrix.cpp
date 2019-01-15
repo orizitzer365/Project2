@@ -45,14 +45,13 @@ std::string vectorTostring(vector<int> vec){
     line +=" $";
     return line;
 }
-std::string Matrix::to_string() {
+std::string Matrix::to_string(){
     std::string line ;
     for(auto it:matrix){
         line+=vectorTostring(it);
     }
     line += '(' + std::to_string(start.first) +  "," + std::to_string(start.second) +")";
     line += '(' + std::to_string(end.first) +  "," + std::to_string(end.second) +")";
-    line+="\n";
     return line;
 }
 std::pair<int,int> pairFromString(std::string line, int i){
@@ -99,3 +98,4 @@ void Matrix::from_string(std::string line) {
     }
 
 }
+

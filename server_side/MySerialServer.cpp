@@ -23,6 +23,7 @@ void server_side::MySerialServer::open(int port,ClientHandler* c) {
     serv.sin_addr.s_addr = INADDR_ANY;
     serv.sin_port = htons(port);
     serv.sin_family = AF_INET;
+    //open a conennection
     if (bind(s, (sockaddr *)&serv, sizeof(serv)) < 0)	{
         std::cerr << "Bad!" << std::endl;
     }
@@ -33,40 +34,35 @@ void server_side::MySerialServer::open(int port,ClientHandler* c) {
     socklen_t clilen = sizeof(client);
 
     timeval timeout;
-    while (true){
+    while (stillRunning){
         timeout.tv_sec = 10;
         timeout.tv_usec = 0;
-
         setsockopt(s, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(timeout));
+        //accept new client
         new_sock = accept(s, (struct sockaddr*)&client, &clilen);
+        sock_id = new_sock;
         if (new_sock < 0)	{
             if (errno == EWOULDBLOCK)	{
-                std::cout << "timeout!" << std::endl;
-                exit(2);
+                //std::cout << "timeout!" << std::endl;
+                break;
             }	else	{
                 perror("other error");
                 exit(3);
             }
         }
-        std::thread server(clientHandeling,new_sock,c);
-        server.detach();
-        currentThread = &server;
-        sock_id = new_sock;
-
+        //handle the client
+        clientHandeling(new_sock,c);
+        close(new_sock);
     }
 
 }
 
 void server_side::MySerialServer::stop() {
-    close(sock_id);
-    if(currentThread!= nullptr)
-        currentThread->join();
+    stillRunning = false;
 }
 
-int main( int argc, char *argv[] ) {
+server_side::MySerialServer::MySerialServer() {stillRunning = true;}
 
-    return 0;
-}
 
 
 

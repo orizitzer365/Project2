@@ -2,42 +2,61 @@
 // Created by ori on 1/8/19.
 //
 
-#include <fstream>
 #include "FileCacheManager.h"
+
+
 using std::fstream;
-template<class Problem, class Solution>
-cache_manager::FileCacheManager<Problem, Solution>::FileCacheManager() {
-    fstream file("cache_manager/solutionFile");
-    std::string pro,sol;
+
+cache_manager::FileCacheManager::FileCacheManager() {
+    fstream file;
+    file.open("cache_manager/solutionFile");
+    //if the file doesn't exist we crete it
+    if(!file){
+        file.open("cache_manager/solutionFile",fstream::out|fstream::trunc);
+    }
     if(file.fail())
         throw "Error in open file";
+    //read from file
+    Problem *p = new stringProblemAndSolution("");
     while (!file.eof()){
-        file>>pro>>sol;
-        //set()
+        Solution* x = new stringProblemAndSolution("");
+        file>>*p>>*x;
+        if(p->to_string()==""||x->to_string()=="")
+            break;
+        solMap.insert(std::make_pair(p->to_string(),x));
     }
+    delete(p);
+    file.close();
+
 }
 
-template<class Problem, class Solution>
-bool cache_manager::FileCacheManager<Problem, Solution>::isExists(Problem *problem) {
-    return solMap.find(problem)!=solMap.end();
+bool cache_manager::FileCacheManager::isExists(Problem *problem) {
+    std::lock_guard<std::mutex> g(mut);
+    return solMap.find(problem->to_string())!=solMap.end();
 }
 
-template<class Problem, class Solution>
-void cache_manager::FileCacheManager<Problem, Solution>::set(Problem *problem, Solution *solution) {
-    solMap.insert(std::make_pair(problem,solution));
+
+void cache_manager::FileCacheManager::set(Problem *problem, Solution *solution) {
+    std::lock_guard<std::mutex> g(mut);
+    solMap.insert(std::make_pair(problem->to_string(),solution));
 }
 
-template<class Problem, class Solution>
-Solution *cache_manager::FileCacheManager<Problem, Solution>::get(Problem *problem) {
-    return solMap.at(problem);
+
+Solution *cache_manager::FileCacheManager::get(Problem *problem) {
+    std::lock_guard<std::mutex> g(mut);
+    return solMap.at(problem->to_string());
 }
 
-template<class Problem, class Solution>
-cache_manager::FileCacheManager<Problem, Solution>::~FileCacheManager() {
+
+cache_manager::FileCacheManager::~FileCacheManager() {
     fstream file("cache_manager/solutionFile");
     if(file.fail())
         throw "Error open file";
+    int j = solMap.size()-1;
     for(auto i = solMap.begin();i!=solMap.end();++i){
-        file<<i->first->to_string()<<" "<<i->second->to_string()<<std::endl;
+        file<<"$$"<<i->first<<"$$"<<" "<<*i->second;
+        if(j>0)
+            file<<std::endl;
+        j--;
     }
 }

@@ -12,15 +12,15 @@
 #include "../cache_manager/FileCacheManager.h"
 #include "../Solver.h"
 
-class MyClientHandler :ClientHandler{
+class MyClientHandler :public ClientHandler{
 private:
     cache_manager::CacheManager<Problem,Solution> *cacheManager;
-    Solver *solver;
+    Solver<Problem,Solution> *solver;
 
 public:
     MyClientHandler();
 
-    MyClientHandler(cache_manager::CacheManager<Problem, Solution> *cacheManager,Solver* solver1);
+    MyClientHandler(cache_manager::CacheManager<Problem, Solution> *cacheManager,Solver<Problem,Solution>* solver1);
 
     void handleClient(int port) override;
 };

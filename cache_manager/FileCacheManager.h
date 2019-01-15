@@ -5,19 +5,22 @@
 #ifndef PROJECT2_FILECACHEMANAGER_H
 #define PROJECT2_FILECACHEMANAGER_H
 
-#include <unordered_map>
+#include <map>
 #include "CacheManager.h"
 #include "../Problem.h"
 #include "../Solution.h"
-using std::unordered_map;
+#include <fstream>
+#include <mutex>
+#include "../StringProblem&Solution.h"
+using std::map;
 namespace cache_manager{
-    template <class Problem,class Solution>
-    class FileCacheManager: CacheManager<Problem,Solution>{
+    class FileCacheManager: public CacheManager<Problem,Solution>{
     private:
-        unordered_map<Problem* ,Solution* > solMap;
+        map<std::string ,Solution* > solMap;
+        mutable std::mutex mut;
     public:
         FileCacheManager();
-        virtual ~FileCacheManager();
+        ~FileCacheManager() ;
         Solution *get(Problem *problem) override;
 
         bool isExists(Problem *problem) override;
@@ -25,14 +28,6 @@ namespace cache_manager{
         void set(Problem *problem, Solution *solution) override;
     };
 }
-//this is the hash function for Problem
-namespace std{
-    template <>
-    struct hash<Problem>{
-        int operator()(Problem* p ){
-            return hash<string>()(p->to_string());
-        }
-    };
-}
+
 
 #endif //PROJECT2_FILECACHEMANAGER_H

@@ -9,9 +9,6 @@
 #include <condition_variable>
 #include <mutex>
 #include <queue>
-#include <thread>
-#include <bits/socket.h>
-#include <bits/socket_type.h>
 #include "Server.h"
 #include <sys/socket.h>
 #include <arpa/inet.h>
@@ -25,12 +22,17 @@
 
 namespace server_side{
 
-    class MyParallelServer:Server{
+    class MyParallelServer:public Server{
+    private:
+        bool strillRunning;
+
     public:
+        MyParallelServer();
+
         void open(int port, ClientHandler *c) override;
 
         void stop() override {
-
+            strillRunning = false;
         }
     };
 

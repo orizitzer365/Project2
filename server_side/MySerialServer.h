@@ -9,11 +9,13 @@
 #include "Server.h"
 
 namespace server_side{
-    class MySerialServer:Server {
+    class MySerialServer:public Server {
     private:
         int sock_id;
-        std::thread* currentThread;
+        bool stillRunning;
     public:
+        MySerialServer();
+
         void open(int port,ClientHandler* c) override;
 
         void stop() override;
