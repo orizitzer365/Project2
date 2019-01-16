@@ -42,6 +42,8 @@ void MyClientHandler::handleClient(int port) {
             perror("ERROR reading from socket");
             exit(1);
         }
+        std::cout<<buffer;
+        return;
         if(buffer=="end")
             break;
         if(i>=2){

@@ -28,14 +28,15 @@ void server_side::MyParallelServer::open(int port, ClientHandler *c) {
     serv.sin_family = AF_INET;
     //open a conennection
     if (bind(s, (sockaddr *)&serv, sizeof(serv)) < 0)	{
-        std::cerr << "Bad!" << std::endl;
+        std::cerr << "Canno't connect" << std::endl;
+        throw "error on connecting";
     }
 
     int new_sock;
     listen(s, SOMAXCONN);
     struct sockaddr_in client;
     socklen_t clilen = sizeof(client);
-    int timeoutTime = -1;
+    int timeoutTime = 0;
     timeval timeout;
     while (true){
         //set a timeout
