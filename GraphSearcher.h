@@ -7,76 +7,89 @@
 
 #include "MyPriorityQueue.h"
 #include "SearchableGraph.h"
-#include "Comparator.h"
-#include <map>
+#include "StateMap.h"
+#include "GraphSolution.h"
 
 enum StateOfState {Open,Close,Nothing};
 
-template <class StateTipe,class SolutionType,class SearchTipeable = SearchableGraph<StateTipe>>
+//template <class StateType>
 class GraphSearcher{
     int evaluatedStates;
-    MyPriorityQueue<StateTipe> openList;
-    std::map<StateTipe,StateOfState,Comparator<StateTipe>> statesInfo;
-    std::map<StateTipe,StateTipe,Comparator<StateTipe>> cameFrom;
+    MyPriorityQueue openList;
+    StateMap<StateOfState> statesInfo;
+    StateMap<State> cameFrom;
 
-    StateOfState stateOfState(StateTipe s){
+    StateOfState stateOfState(State s){
         try {
             return statesInfo.at(s);
-        } catch (...){
+        }catch (...){
             return Nothing;
         }
     }
 
 protected:
-    void setCameFrom(StateTipe s,StateTipe t){
-        cameFrom[s] = t;
+    virtual void setCameFrom(State s,State t){
+        cameFrom.add(pair<State,State>(s,t));
     }
-    StateTipe getCameFrom(StateTipe s){
+
+    virtual State getCameFrom(State s){
         return cameFrom.at(s);
     }
-    std::map<StateTipe,StateTipe,Comparator<StateTipe>>* getCameFrom(){
+
+    virtual StateMap<State>* getCameFrom(){
         return &cameFrom;
     }
-    void pushToOpenList(StateTipe s){
-        openList.push(s);
-        statesInfo[s] = Open;
+
+    virtual void pushToOpenList(State s, int priority){
+        if (priority == -1){
+            return;
+        }
+        openList.push(s,priority);
+        statesInfo.add(pair<State,StateOfState >(s,Open));
     }
-    void pushToCloseList(StateTipe s){
-        statesInfo[s] = Close;
+
+    virtual void pushToCloseList(State s){
+        statesInfo.add(pair<State,StateOfState >(s,Close));
     }
-    StateTipe popOpenList(){
+
+    virtual State popOpenList(){
         evaluatedStates++;
-        StateTipe s = openList.front();
+        State s = openList.front();
         openList.pop();
         return s;
     }
-    StateTipe frontOfOpenList(){
+
+    virtual State frontOfOpenList(){
         return openList.front();
     }
-    int getPriority(StateTipe s){
-        return openList.getPriority();
+
+    virtual int getPriority(State s){
+        return openList.getPriority(s);
     }
-    void changePriorityInOpenList(StateTipe s,int newPri){
+
+    virtual void changePriorityInOpenList(State s,int newPri){
         openList.changePriority(s,newPri);
     }
-    bool IsOpen(StateTipe s){
+
+    virtual bool IsOpen(State s){
         return stateOfState(s) == Open;
     }
-    bool IsClose(StateTipe s){
+
+    virtual bool IsClose(State s){
         return stateOfState(s) == Close;
     }
 public:
     GraphSearcher(): evaluatedStates(0){}
 
-    int sizeOfOpenList(){
+    virtual int sizeOfOpenList(){
         return openList.getSize();
     }
 
-    int getNumberOfStatesEvaluated(){
+    virtual int getNumberOfStatesEvaluated(){
         return evaluatedStates;
     }
 
-    virtual SolutionType* search(SearchTipeable* searchable) = 0;
+    virtual void search(SearchableGraph* searchable,GraphSolution* gs) = 0;
 
 };
 

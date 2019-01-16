@@ -7,25 +7,27 @@
 
 #define DEFAULT_COST 1;
 
-template <class StateTipe>
+#include "StateType.h"
+
+//template <class StateType>
 class State {
 
-    StateTipe state;
+    StateType state;
     double cost;
 
 public:
 
-    State(StateTipe state , double cost): state(state), cost(cost){}
+    State(StateType state , double cost): state(state), cost(cost){}
 
-    State(StateTipe state): state(state){
+    State(StateType state): state(state){
         cost = DEFAULT_COST;
     }
 
-    bool operator==(State<StateTipe> other){
+    bool operator==(State other){
         return other.state == this->state;
     }
 
-    virtual bool operator<(State<StateTipe> other){
+    virtual bool operator<(State other){
         return other.state < this->state;
     }
 
@@ -33,8 +35,8 @@ public:
         return cost;
     }
 
-    StateTipe getState(){
-        return StateTipe(state);
+    StateType getState(){
+        return StateType(state);
     }
 
 };

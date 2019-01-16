@@ -5,27 +5,33 @@
 #ifndef PRO2_GRAPHSOLUTION_H
 #define PRO2_GRAPHSOLUTION_H
 
-#include "Solution.h"
-#include <map>
-#include "Comparator.h"
 #include "State.h"
 #include <vector>
 
-template <class StateType>
-class GraphSolution : public Solution{
+//template <class StateType>
+class GraphSolution{
 protected:
      bool noSolution;
-     std::vector<StateType> list;
+     std::vector<State> list;
 public:
     GraphSolution(){
         noSolution = true;
     }
-    GraphSolution(std::map<StateType,StateType,Comparator<StateType>> cameFrom,
-                  StateType goal,StateType init){
-        std::vector<StateType> temp;
+    std::vector<State> getList(){
+        return list;
+    }
+    bool isNoSolution(){
+        return noSolution;
+    }
+    void set(){
+        noSolution = true;
+    }
+    void set(StateMap<State>* cameFrom,
+             State goal,State init){
+        std::vector<State> temp;
         temp.push_back(goal);
         while(!(goal == init)){
-            goal = cameFrom[goal];
+            goal = cameFrom->at(goal);
             temp.push_back(goal);
         }
         for(int i= temp.size()-1;i>=0;i--){
