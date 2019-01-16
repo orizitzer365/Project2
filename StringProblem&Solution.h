@@ -16,6 +16,10 @@ public:
 
     stringProblemAndSolution() {}
 
+    virtual ~stringProblemAndSolution() {
+
+    }
+
     std::string to_string()override {
         return s;
     }

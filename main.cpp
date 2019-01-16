@@ -11,5 +11,4 @@ int main(int argc, char* argv[]) {
     server_side::Server *server= new server_side::MyParallelServer();
     server->open(std::stoi(argv[1]),new MyClientHandler(new FileCacheManager(),new StringReverser()));
     delete server;
-
 }

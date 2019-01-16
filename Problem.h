@@ -16,6 +16,9 @@ public:
     virtual bool operator==(Problem & x){
         return this->to_string()==x.to_string();
     }
+
+    virtual ~Problem() {}
+
     friend std::ostream &operator<<(ostream& o ,Problem& p){
         o  << p.to_string() ;
         return o;

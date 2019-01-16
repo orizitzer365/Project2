@@ -12,6 +12,7 @@ namespace server_side{
     public:
         virtual void open(int port,ClientHandler* c) = 0 ;
         virtual void stop() = 0 ;
+
     };
 }
 #endif //PROJECT2_SERVER_H

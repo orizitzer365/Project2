@@ -42,8 +42,6 @@ void MyClientHandler::handleClient(int port) {
             perror("ERROR reading from socket");
             exit(1);
         }
-        std::cout<<buffer;
-        return;
         if(buffer=="end")
             break;
         if(i>=2){
@@ -64,7 +62,8 @@ void MyClientHandler::handleClient(int port) {
         sol = solver->solve(mat);
     send(port,sol->to_string().c_str(),sol->to_string().size(),0);
     if(!cacheManager->isExists(mat))
-    cacheManager->set(mat,sol);
+        cacheManager->set(mat,sol);
+    close(port);
 }
 
 MyClientHandler::MyClientHandler() {}
@@ -72,6 +71,9 @@ MyClientHandler::MyClientHandler() {}
 MyClientHandler::MyClientHandler(cache_manager::CacheManager<Problem, Solution> *cacheManager,Solver<Problem,Solution>* solver1) :
 cacheManager(cacheManager) ,solver(solver1){}
 
+MyClientHandler::~MyClientHandler() {
+
+}
 
 
 

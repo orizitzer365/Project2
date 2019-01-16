@@ -16,6 +16,7 @@ public:
         o << "$$" << p.to_string() << "$$";
         return o;
     }
+    virtual ~Solution(){}
     friend std::istream &operator>>(std::istream &in, Solution &p) {
         std::string buf = "";
         char c;

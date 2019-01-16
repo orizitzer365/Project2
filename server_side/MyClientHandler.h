@@ -24,6 +24,8 @@ public:
 
     void handleClient(int port) override;
 
+    ~MyClientHandler();
+
 };
 
 
