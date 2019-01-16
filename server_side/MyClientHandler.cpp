@@ -71,7 +71,7 @@ void MyClientHandler::handleClient(int port) {
 
 MyClientHandler::MyClientHandler() {}
 
-MyClientHandler::MyClientHandler(cache_manager::CacheManager<Problem, Solution> *cacheManager,Solver<Problem,Solution>* solver1) :
+MyClientHandler::MyClientHandler(cache_manager::CacheManager<Problem, Solution> *cacheManager,Solver<Matrix,Solution>* solver1) :
 cacheManager(cacheManager) ,solver(solver1){}
 
 MyClientHandler::~MyClientHandler() {
