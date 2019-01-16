@@ -35,11 +35,11 @@ void server_side::MyParallelServer::open(int port, ClientHandler *c) {
     listen(s, SOMAXCONN);
     struct sockaddr_in client;
     socklen_t clilen = sizeof(client);
-
+    int timeoutTime = -1;
     timeval timeout;
     while (true){
         //set a timeout
-        timeout.tv_sec = 10;
+        timeout.tv_sec = timeoutTime;
         timeout.tv_usec = 0;
 
         setsockopt(s, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(timeout));
@@ -54,6 +54,7 @@ void server_side::MyParallelServer::open(int port, ClientHandler *c) {
             }
         }
         tasks_queue.push(new TaskHandleClient(c,new_sock));
+        timeoutTime=10;
     }
     //make the threads over
     tasks_queue.exit();
