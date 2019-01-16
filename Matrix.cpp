@@ -6,16 +6,24 @@
 
 Matrix::Matrix(){}
 
-void Matrix::add(std::string line,int lineNumber) {
-    int j = -1;
+int Matrix::add(std::string line,int lineNumber) {
+    int j = 0;
     std::string val;
-    while(j==-1||line.at(j)=='\0') {
+
+    while((line.at(j)!='\0'&&line.at(j)!='\n')) {
+        while (line.at(j)!=','&&line.at(j)!='\0'&&line.at(j)!='\n'){
+            //val+=line.at(j);
+            val.push_back(line.at(j));
+        }
+        if(val!="")
+            matrix.at(lineNumber).push_back(stoi(val));
         j++;
         val="";
-        while (line.at(j)!=','&&line.at(j)!='\0'&&line.at(j)!='\n')
-            val+=line.at(j);
-        matrix.at(lineNumber).push_back(stoi(val));
     }
+    //if couple of lines are in one buffer
+    if(line.at(j+1)!='\0')
+        return add(line.substr(j+1,line.size()-j-1),lineNumber+1);
+    return lineNumber+1;
 }
 
 void Matrix::setStart(std::pair<int, int> start) {

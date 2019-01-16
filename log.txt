@@ -1,3 +1,87 @@
+commit 146c25ca1564e5dc21f837534531d8a68bea8ba6
+Merge: 863c7c7 6d93c70
+Author: orizitzer365 <orizit365@gmail.com>
+Date:   Wed Jan 16 23:30:23 2019 +0200
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 6d93c7025b6cd87cac2519daa46093aa48d0dbb7
+Author: napan11 <46086872+napan11@users.noreply.github.com>
+Date:   Wed Jan 16 23:17:39 2019 +0200
+
+    Add files via upload
+
+commit 863c7c72e560f448b286b6ac73643a413bf1a91e
+Author: orizitzer365 <orizit365@gmail.com>
+Date:   Wed Jan 16 22:20:13 2019 +0200
+
+    final - ori
+
+commit db9330d4e030712302c47cd9c8a8d54f9c63b367
+Author: orizitzer365 <orizit365@gmail.com>
+Date:   Wed Jan 16 21:55:18 2019 +0200
+
+    final - ori
+
+commit c9f637ba4bfc9ee490f0d5e9893c1c7061b4ecd8
+Author: napan11 <46086872+napan11@users.noreply.github.com>
+Date:   Wed Jan 16 21:08:29 2019 +0200
+
+    Add files via upload
+
+commit 3fe8a3bddcf27b81cfb9c4df50f084c908548af1
+Author: orizitzer365 <orizit365@gmail.com>
+Date:   Wed Jan 16 21:02:11 2019 +0200
+
+    final - ori
+
+commit 6beaa24a99c17f66416271acfabe9ea8d207bcdb
+Author: orizitzer365 <orizit365@gmail.com>
+Date:   Wed Jan 16 20:49:32 2019 +0200
+
+    Merge branch 'master' of https://github.com/orizitzer365/Project2
+    
+    # Conflicts:
+    #       .idea/modules.xml
+    #       CMakeLists.txt
+
+commit 2e9d5acd1b015238c26f1634b563922932d31b4c
+Author: napan11 <46086872+napan11@users.noreply.github.com>
+Date:   Tue Jan 15 22:58:15 2019 +0200
+
+    Add files via upload
+
+commit 834117f8caa1fa61b407d8fdaad20798629128af
+Author: orizitzer365 <orizit365@gmail.com>
+Date:   Tue Jan 15 22:10:59 2019 +0200
+
+    Merge branch 'master' of https://github.com/orizitzer365/Project2
+    
+    # Conflicts:
+    #       .idea/modules.xml
+    #       CMakeLists.txt
+
+commit 20732b1413e9e62ac7c8afacbe910e5233d3a67b
+Author: orizitzer365 <orizit365@gmail.com>
+Date:   Tue Jan 15 18:25:07 2019 +0200
+
+    Merge branch 'master' of https://github.com/orizitzer365/Project2
+    
+    # Conflicts:
+    #       .idea/modules.xml
+    #       CMakeLists.txt
+
+commit 1b07a2b5ff4ad3bca1fb82bec04321a9aace0960
+Merge: 112e4d1 abe4c61
+Author: orizitzer365 <orizit365@gmail.com>
+Date:   Tue Jan 15 18:24:09 2019 +0200
+
+    Merge branch 'master' of https://github.com/orizitzer365/Project2
+    
+    # Conflicts:
+    #       .idea/modules.xml
+    #       CMakeLists.txt
+
 commit 112e4d1ef33422798449f62665046834583996ad
 Author: orizitzer365 <orizit365@gmail.com>
 Date:   Tue Jan 15 18:18:03 2019 +0200
@@ -15,6 +99,18 @@ Author: orizitzer365 <orizit365@gmail.com>
 Date:   Tue Jan 15 18:15:15 2019 +0200
 
     added 15/01/19
+
+commit abe4c6164427f0c4a4733b1cfad0264d03400ef2
+Author: napan11 <46086872+napan11@users.noreply.github.com>
+Date:   Tue Jan 15 18:10:07 2019 +0200
+
+    Add files via upload
+
+commit 3436522934a628ea058ec1e5af57a3247a7df9ef
+Author: orizitzer365 <orizit365@gmail.com>
+Date:   Mon Jan 14 21:10:11 2019 +0200
+
+    added
 
 commit c5d0a4ae1c5e87037e5b3e9b3ece2d568d5896c5
 Author: orizitzer365 <orizit365@gmail.com>

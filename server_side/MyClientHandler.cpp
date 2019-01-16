@@ -9,7 +9,7 @@
 #include <netdb.h>
 #include <unistd.h>
 #include <netinet/in.h>
-
+#include "algorithm"
 #include <string>
 #include <sys/socket.h>
 #include <cstring>
@@ -46,9 +46,10 @@ void MyClientHandler::handleClient(int port) {
         if(buffer=="end")
             break;
         if(i>=2){
-            mat->add(strings.at(i-2),i-2);
-        }
-        i++;
+            i = mat->add(strings.at(i-2),i-2);
+        }else
+            i++;
+        buffer.erase(std::find(buffer.begin(),buffer.end(),'\0'),buffer.end());
         strings.push_back(buffer);
     }
     //set the start and the end of the matrix

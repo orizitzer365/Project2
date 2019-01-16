@@ -21,7 +21,7 @@ public:
     Matrix(vector<vector<int> >& mat){
         matrix = vector<vector<int>>(mat);
     }
-    void add(std::string line,int lineNumber);
+    int add(std::string line,int lineNumber);
 
     void setStart(std::pair<int, int> start);
 

@@ -55,7 +55,7 @@ void server_side::MyParallelServer::open(int port, ClientHandler *c) {
             }
         }
         tasks_queue.push(new TaskHandleClient(c,new_sock));
-        timeoutTime=10;
+        timeoutTime=1;
     }
     //make the threads over
     tasks_queue.exit();
