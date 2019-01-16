@@ -96,6 +96,12 @@ void Matrix::from_string(std::string line) {
     while(line.at(i)!=')'){
         i++;
     }
-
 }
 
+int Matrix::rowLen() {
+    return matrix.size();
+}
+
+int Matrix::colLen() {
+    return matrix.at(0).size();
+}

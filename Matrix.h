@@ -18,6 +18,9 @@ private:
     std::pair<int,int> end;
 public:
     Matrix();
+    Matrix(vector<vector<int> >& mat){
+        matrix = vector<vector<int>>(mat);
+    }
     void add(std::string line,int lineNumber);
 
     void setStart(std::pair<int, int> start);
@@ -33,6 +36,10 @@ public:
     std::string to_string() override;
 
     void from_string(std::string string) override;
+
+    int rowLen();
+
+    int colLen();
 };
 
 

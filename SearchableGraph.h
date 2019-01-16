@@ -9,22 +9,19 @@
 #include "State.h"
 using std::list;
 
-template <class StateTipe>
+//template <class StateType>
 class SearchableGraph{
 public:
-    virtual State<StateTipe> getInitialState() = 0;
-    virtual State<StateTipe> getGoalState() = 0;
-    virtual list<State<StateTipe>> getAllPossibleStates(State<StateTipe> s) = 0;
-};
+    virtual State getInitialState() = 0;
+    virtual State getGoalState() = 0;
+    virtual vector<State>* getAllPossibleStates(State s) = 0;
+    virtual double heuristicFunction(State thisState,State goalState){
+        return 0;
+    }
 
-template <class StateTipe>
-class SmartSearchableGraph : public SearchableGraph<StateTipe>{
-public:
-    virtual double heuristicFunction(State<StateTipe> thisState,State<StateTipe> goalState) = 0;
-    double heuristicFunction(State<StateTipe> thisState){
+    virtual double heuristicFunction(State thisState){
         return heuristicFunction(thisState,this->getGoalState());
     }
 };
-
 
 #endif //PRO2_SEARCHABLEGraph_H

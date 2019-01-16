@@ -15,14 +15,14 @@
 using std::vector;
 using std::pair;
 
-template <class StateTipe>
+//template <class StateType>
 class MyPriorityQueue{
-    vector<pair<State<StateTipe>,int>> vec;
-    HeapCompare<State<StateTipe>> h;
+    vector<pair<State,int>> vec;
+    HeapCompare<State> h;
 public:
 
-    void push(State<StateTipe>& s,int priority){
-        vec.push_back(pair<State<StateTipe>,int>(State<StateTipe>(s),priority));
+    void push(State s,int priority){
+        vec.push_back(pair<State,int>(State(s),priority));
         std::push_heap(vec.begin(), vec.end(),h);
     }
 
@@ -31,7 +31,7 @@ public:
         vec.pop_back();
     }
 
-    State<StateTipe> front(){
+    State front(){
         return vec.front().first;
     }
 
@@ -39,8 +39,8 @@ public:
         return vec.size();
     }
 
-    int getPriority(State<StateTipe> s){
-        for(pair<State<StateTipe>,int> p : vec){
+    int getPriority(State s){
+        for(pair<State,int> p : vec){
             if(p.first == s){
                 return p.second;
             }
@@ -48,7 +48,7 @@ public:
         return INVALID_STATE;
     }
 
-    void remove(State<StateTipe> s){
+    void remove(State s){
         auto start = vec.begin();
         auto end = vec.end();
         while (start != end){
@@ -60,7 +60,7 @@ public:
         }
     }
 
-    void changePriority(State<StateTipe> s,int newPri){
+    void changePriority(State s,int newPri){
         remove(s);
         std::make_heap(vec.begin(),vec.end(),h);
         push(s,newPri);
