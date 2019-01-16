@@ -18,7 +18,8 @@ public:
     virtual double heuristicFunction(State thisState,State goalState){
         return 0;
     }
-    double heuristicFunction(State thisState){
+
+    virtual double heuristicFunction(State thisState){
         return heuristicFunction(thisState,this->getGoalState());
     }
 };

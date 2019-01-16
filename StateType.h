@@ -8,6 +8,7 @@
 using std::pair;
 
 #define StateType MyType
+#define ALGO AStar
 
 class MyType{
     pair<int,int> p;

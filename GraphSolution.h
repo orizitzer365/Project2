@@ -5,7 +5,7 @@
 #ifndef PRO2_GRAPHSOLUTION_H
 #define PRO2_GRAPHSOLUTION_H
 
-#include "State.h"
+#include "StateMap.h"
 #include <vector>
 
 //template <class StateType>
@@ -38,6 +38,16 @@ public:
             list.push_back(temp[i]);
         }
         noSolution = false;
+    }
+    int getCost(){
+        if(noSolution){
+            return -1;
+        }
+        int c = 0;
+        for(State s : list){
+            c += s.getCost();
+        }
+        return c;
     }
 };
 
