@@ -12,7 +12,7 @@ void Matrix::add(std::string line,int lineNumber) {
     while(j==-1||line.at(j)=='\0') {
         j++;
         val="";
-        while (line.at(j)!=','&&line.at(j)!='\0')
+        while (line.at(j)!=','&&line.at(j)!='\0'&&line.at(j)!='\n')
             val+=line.at(j);
         matrix.at(lineNumber).push_back(stoi(val));
     }

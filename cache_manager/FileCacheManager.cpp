@@ -22,6 +22,7 @@ cache_manager::FileCacheManager::FileCacheManager() {
         Solution* x = new stringProblemAndSolution("");
         file>>*p>>*x;
         if(p->to_string()==""||x->to_string()==""){
+            delete(x);
             break;
         }
         solMap.insert(std::make_pair(p->to_string(),x));

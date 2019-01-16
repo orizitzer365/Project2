@@ -9,6 +9,8 @@ int main(int argc, char* argv[]) {
     if(argc!=2)
         throw "Invalid Argument";
     server_side::Server *server= new server_side::MyParallelServer();
-    server->open(std::stoi(argv[1]),new MyClientHandler(new FileCacheManager(),new StringReverser()));
+    ClientHandler * clientHandler = new MyClientHandler(new FileCacheManager(),new StringReverser());
+    server->open(std::stoi(argv[1]),clientHandler);
     delete server;
+    delete(clientHandler);
 }

@@ -16,5 +16,9 @@ public:
         std::reverse(s.begin(),s.end());
         return new stringProblemAndSolution(s);
     }
+
+    virtual ~StringReverser() {
+
+    }
 };
 #endif //PROJECT2_STRINGREVERSER_H

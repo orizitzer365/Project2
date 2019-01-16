@@ -31,6 +31,7 @@ void MyClientHandler::handleClient(int port) {
     Matrix* mat = new Matrix();
     vector<string> strings;
     int i=0;
+
     //reading the rows of the matrix
     while (true){
         string buffer(512,0);
@@ -63,6 +64,7 @@ void MyClientHandler::handleClient(int port) {
     send(port,sol->to_string().c_str(),sol->to_string().size(),0);
     if(!cacheManager->isExists(mat))
         cacheManager->set(mat,sol);
+    delete mat;
     close(port);
 }
 
@@ -72,7 +74,8 @@ MyClientHandler::MyClientHandler(cache_manager::CacheManager<Problem, Solution> 
 cacheManager(cacheManager) ,solver(solver1){}
 
 MyClientHandler::~MyClientHandler() {
-
+    delete solver;
+    delete cacheManager;
 }
 
 
