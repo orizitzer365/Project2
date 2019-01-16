@@ -7,25 +7,84 @@
 
 #include "GraphSearcher.h"
 
-template <class StateTipe,class SolutionType>
-class BestFirstSearch : public GraphSearcher<StateTipe,SolutionType>{
+
+//template <class StateType>
+class BestFirstSearch : public GraphSearcher{
 public:
-    SolutionType search(SearchableGraph<StateTipe> searchable) {
+    BestFirstSearch():GraphSearcher(){}
+
+    virtual int sizeOfOpenList() {
+        return GraphSearcher::sizeOfOpenList();
+    }
+
+    virtual int getNumberOfStatesEvaluated() {
+        return GraphSearcher::getNumberOfStatesEvaluated();
+    }
+
+protected:
+    virtual void setCameFrom(State s, State t) {
+        GraphSearcher::setCameFrom(s, t);
+    }
+
+    virtual State getCameFrom(State s) {
+        return GraphSearcher::getCameFrom(s);
+    }
+
+    virtual StateMap<State> *getCameFrom() {
+        return GraphSearcher::getCameFrom();
+    }
+
+    virtual void pushToOpenList(State s,int priority) {
+        GraphSearcher::pushToOpenList(s,priority);
+    }
+
+    virtual void pushToCloseList(State s) {
+        GraphSearcher::pushToCloseList(s);
+    }
+
+    virtual State popOpenList() {
+        return GraphSearcher::popOpenList();
+    }
+
+    virtual State frontOfOpenList() {
+        return GraphSearcher::frontOfOpenList();
+    }
+
+    virtual int getPriority(State s) {
+        return GraphSearcher::getPriority(s);
+    }
+
+    virtual void changePriorityInOpenList(State s, int newPri) {
+        GraphSearcher::changePriorityInOpenList(s, newPri);
+    }
+
+    virtual bool IsOpen(State s) {
+        return GraphSearcher::IsOpen(s);
+    }
+
+    virtual bool IsClose(State s) {
+        return GraphSearcher::IsClose(s);
+    }
+
+public:
+    void search(SearchableGraph* searchable,GraphSolution* gs) {
         // a priority queue of states to be evaluated that contains the initial state:
-        this->pushToOpenList(searchable.getInitialState());
+        this->pushToOpenList(searchable->getInitialState(),0);
         while (this->sizeOfOpenList() != 0){
             // Remove the best node from OPEN
             int nodePriority = this->getPriority(this->frontOfOpenList());
-            auto n = this->popOpenList();
+            State n = this->popOpenList();
             // so we won’t check n again:
             this->pushToCloseList(n);
             //the goal:
-            if(n == searchable.getGoalState()){
-                return SolutionType(this->getCameFrom(),n,searchable.getInitialState());
+            if(n == searchable->getGoalState()){
+                gs->set(this->getCameFrom(),n,searchable->getInitialState());
+                return;
             }
             //Create n's successors:
-            auto successors = searchable.getAllPossibleStates(n);
-            for(auto successor : successors){
+            vector<State>* successors = searchable->getAllPossibleStates(n);
+            for(int i=0;i<successors->size();++i){
+                State successor = (*successors)[i];
                 //s is open -> adjust its priority
                 if(this->IsOpen(successor)){
                     double oldPriority = this->getPriority(successor);
@@ -37,7 +96,10 @@ public:
                     continue;
                 }
                 //s is close:
-                if(this->IsClose()){
+                if(this->IsClose(successor)){
+                    continue;
+                }
+                if (successor.getCost() == -1){
                     continue;
                 }
                 //else -> adds s to the opens:
@@ -45,8 +107,9 @@ public:
                 double newPriority = nodePriority + successor.getCost();
                 this->pushToOpenList(successor,newPriority);
             }
+            delete successors;
         }
-        return new SolutionType();
+        gs->set();
     }
 };
 
